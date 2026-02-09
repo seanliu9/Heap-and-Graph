@@ -5,8 +5,13 @@ int main()
     std::cout << "Starting function tests: " << endl;
 
     std::pair<char, int> arr[] = {{'A', 53}, {'B', 40}, {'M', 38}, {'R', 62}, {'H', 48}, {'D', 63}, {'C', 60}, {'G', 122}, {'W', 3}, {'J', 25}, {'Q', 81}, {'Z', 37}, {'N', 118}};
+
     MinHeap<char, int>* mh = new MinHeap<char, int>(arr);
     std::cout << mh;
+
+    MinHeap<char, int>* mh2 = new MinHeap<char, int>(arr, 13);
+    std::cout << mh2;
+    delete mh2;
 
     std::cout << "Testing add: " << endl;
     mh->add({'P', 16});
@@ -33,7 +38,7 @@ int main()
     std::cout << endl << "Finished function tests" << endl;
 
     std::cout << endl << "Starting heap sort test: " << endl;
-    
+
     std::pair<char, int> arr1[] = {{'A', 53}, {'B', 40}, {'M', 38}, {'R', 62}, {'H', 48}, {'D', 63}, {'C', 60}, {'G', 122}, {'W', 3}, {'J', 25}, {'Q', 81}, {'Z', 37}, {'N', 118}};
     MinHeap<char, int>* mh1 = new MinHeap<char, int>(arr1);
     std::vector<int> sorted;
