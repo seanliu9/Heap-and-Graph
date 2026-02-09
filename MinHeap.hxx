@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 // constructors
 
 // reserves the estimated space needed
@@ -139,13 +141,33 @@ void MinHeap<V, K>::add(const std::pair<V, K> x)
 template<typename V, typename K>
 std::pair<V, K> MinHeap<V, K>::pop()
 {
-    std::pair<V, K> res = this->get_min();
-    // Swap the first and last elements of vec.
-    std::swap(this->get_vec()[0], this->get_vec()[this->get_vec().size() - 1]);
-    // Delete the last element in vec.
-    this->get_vec().pop_back();
-    this->down_heap();
-    return res;
+    if (this->empty())
+    {
+        throw std::runtime_error("Heap is already empty.");
+    }
+    else
+    {
+        std::pair<V, K> res = this->get_min();
+        // Swap the first and last elements of vec.
+        std::swap(this->get_vec()[0], this->get_vec()[this->get_vec().size() - 1]);
+        // Delete the last element in vec.
+        this->get_vec().pop_back();
+        this->down_heap();
+        return res;
+    }
+}
+
+template<typename V, typename K>
+std::pair<V, K> MinHeap<V, K>::get_min() const
+{
+    if (this->empty())
+    {
+        throw std::runtime_error("Heap is empty.");
+    }
+    else
+    {
+        return this->get_vec()[0];
+    }
 }
 
 

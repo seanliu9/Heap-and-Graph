@@ -42,7 +42,7 @@ public:
 
     std::pair<V, K> pop();
 
-    std::pair<V, K> get_min() const {return this->get_vec()[0];}
+    std::pair<V, K> get_min() const;
 
     bool empty() const {return this->get_vec().empty();}
 
