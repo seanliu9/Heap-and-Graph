@@ -36,6 +36,9 @@ public:
     template<size_t N>
     MinHeap(const std::pair<V, K> (&initial_arr)[N]);
 
+    // initializes pVec with an array containing the initial data, and also the initial size
+    MinHeap(const std::pair<V, K>& initial_arr, const size_t initial_size);
+
     // methods
 
     void add(const std::pair<V, K> x);
