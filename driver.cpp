@@ -7,10 +7,10 @@ int main()
     std::pair<char, int> arr[] = {{'A', 53}, {'B', 40}, {'M', 38}, {'R', 62}, {'H', 48}, {'D', 63}, {'C', 60}, {'G', 122}, {'W', 3}, {'J', 25}, {'Q', 81}, {'Z', 37}, {'N', 118}};
 
     MinHeap<char, int>* mh = new MinHeap<char, int>(arr);
-    std::cout << mh;
+    std::cout << "mh: " << endl << mh;
 
     MinHeap<char, int>* mh2 = new MinHeap<char, int>(arr, 13);
-    std::cout << mh2;
+    std::cout << "mh2: " << endl << mh2;
     delete mh2;
 
     std::cout << "Testing add: " << endl;
