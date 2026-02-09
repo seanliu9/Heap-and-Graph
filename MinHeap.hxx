@@ -12,7 +12,7 @@ MinHeap<V, K>::MinHeap(const size_t initial_capacity) : pVec(new std::vector<std
 // initializes pVec with an array containing the initial data
 template<typename V, typename K>
 template<size_t N>
-MinHeap<V, K>::MinHeap(const std::pair<V, K> (&initial_arr)[N]) : pVec(new std::vector<std::pair<V, K>>)
+MinHeap<V, K>::MinHeap(const std::pair<V, K> (&initial_arr)[N]) : pVec(new std::vector<std::pair<V, K>>())
 {
     this->pVec->reserve(2 * N);
     for (size_t i = 0; i < N; i++)
