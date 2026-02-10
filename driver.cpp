@@ -1,6 +1,8 @@
 #include "MinHeap.hpp"
+#include "Graph.hpp"
 using namespace std;
-int main()
+
+void test_MinHeap()
 {
     std::cout << "Starting function tests: " << endl;
 
@@ -53,4 +55,15 @@ int main()
     delete mh1;
 
     std::cout << endl << "Finished heap sort tests" << endl;
+}
+
+void test_Graph()
+{
+    std::cout << "starting graph tests" << endl;
+
+}
+
+int main()
+{
+
 }
