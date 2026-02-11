@@ -6,7 +6,8 @@ template<typename V, typename E> class Graph;
 template<typename V>
 class Edge
 {
-friend class Graph<V, Edge<V>>; 
+// friend class Graph<V, Edge<V>>; 
+template<typename E> friend class Vertex;
 friend class Vertex<Edge<V>>;
 
 private:
@@ -17,7 +18,7 @@ private:
 
     // set methods
 
-    void set_next_of_orig(const Edge<V>* const next_of_orig) {this->m_p_next_of_orig = next_of_orig;}
+    void set_next_of_orig(Edge<V>* const next_of_orig) {this->m_p_next_of_orig = next_of_orig;}
 
 public:
     // constructors
@@ -40,7 +41,9 @@ public:
     const Edge<V>* get_next_of_orig() const {return this->m_p_next_of_orig;}
     Edge<V>* get_next_of_orig() {return this->m_p_next_of_orig;}
 
-    virtual double get_cost() const;
+    // set methods
+    void set_orig(V* const v) {this->m_p_orig_vtx = v;}
+    void set_dest(V* const v) {this->m_p_dest_vtx = v;}
 
-    virtual void setup();
+    virtual double get_distance() const = 0; // must be implemented by derived classes- used for algorithms like shortest path, etc.
 };

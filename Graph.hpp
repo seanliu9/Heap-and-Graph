@@ -24,8 +24,12 @@ public:
 
     size_t get_num_edges() const {return this->m_num_edges;}
 
-    V* get_vertex(const size_t idx) {return this->m_arr_vertices[idx];}
-    E* get_edge(const size_t idx) {return this->m_arr_edges[idx];}
+    V* get_vertex(const size_t idx) {return &this->m_arr_vertices[idx];}
+    E* get_edge(const size_t idx) {return &this->m_arr_edges[idx];}
 
-    virtual void setup();
+    // set methods
+
+    // void setup_V(V* const v) {}
+    void setup_E(E* const e, V* const orig, V* const dest);
 };
+#include "Graph.hxx"

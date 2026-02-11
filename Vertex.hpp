@@ -1,5 +1,6 @@
 #pragma once
 #include <cstddef>
+#include "Edge.hpp"
 
 template<typename V> class Edge;
 template <typename V, typename E> class Graph;
@@ -26,13 +27,11 @@ public:
 
     // set methods
 
-    void set_adj_list_head(const E* const e) {this->m_p_adj_list_head = e;}
+    void set_adj_list_head(E* const e) {this->m_p_adj_list_head = e;}
 
     // other methods
 
     // Add edge e as an outgoing edge of the vertex.
     void add_outgoing_edge(E* const e);
-
-    virtual void setup();
 };
-// #include "Vertex.hxx"
+#include "Vertex.hxx"
