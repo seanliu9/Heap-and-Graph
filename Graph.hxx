@@ -14,3 +14,10 @@ void Graph<V, E>::setup_E(E* const e, V* const orig, V* const dest)
     orig->add_outgoing_edge(e);
 }
 
+template <typename V, typename E>
+Graph<V, E>::~Graph()
+{
+    delete[] this->m_arr_vertices;
+    delete[] this->m_arr_edges;
+}
+
