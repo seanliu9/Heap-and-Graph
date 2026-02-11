@@ -57,13 +57,7 @@ void test_MinHeap()
     std::cout << endl << "Finished heap sort tests" << endl;
 }
 
-void test_Graph()
-{
-    std::cout << "starting graph tests" << endl;
-
-}
-
 int main()
 {
-
+    test_MinHeap();
 }

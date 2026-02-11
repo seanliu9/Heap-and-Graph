@@ -7,24 +7,25 @@ template <typename V, typename E>
 class Graph
 {
 private:
-    V* arr_vertices;
-    E* arr_edges;
+    const size_t m_num_vertices;
+    const size_t m_num_edges;
+    V* const m_arr_vertices;
+    E* const m_arr_edges;
 
 public:
     // constructors
-
-    // default constructor
-    Graph() : arr_vertices(nullptr), arr_edges(nullptr) {}
-
-    Graph(const V* const vertices, const E* const edges);
+    Graph(const size_t n, const size_t m) : m_num_vertices(n), m_num_edges(m), m_arr_vertices(new V[n]), m_arr_edges(new E[m]) {}
 
     // methods
 
     // get methods
 
-    const V* get_vertices() const {return this->arr_vertices;}
-    V* get_vertices() {return this->arr_vertices;}
+    size_t get_num_vertices() const {return this->m_num_vertices;}
 
-    const E* get_edges() const {return this->arr_edges;}
-    E* get_edges() {return this->arr_edges;}
+    size_t get_num_edges() const {return this->m_num_edges;}
+
+    V* get_vertex(const size_t idx) {return this->m_arr_vertices[idx];}
+    E* get_edge(const size_t idx) {return this->m_arr_edges[idx];}
+
+    virtual void setup();
 };

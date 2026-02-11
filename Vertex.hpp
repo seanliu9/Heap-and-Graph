@@ -1,39 +1,38 @@
 #pragma once
+#include <cstddef>
 
 template<typename V> class Edge;
+template <typename V, typename E> class Graph;
 
 template<typename E>
 class Vertex
 {
+friend class Graph<Vertex<E>, E>;
+
 private:
-    size_t orig_edge_count;
-    E* p_adj_list_head; // head of the vertex's outgoing adjacency list
+    size_t m_orig_edge_count = 0; // number of outgoing edges from the vertex
+    E* m_p_adj_list_head = nullptr; // head of the vertex's outgoing adjacency list
+    const size_t m_idx = 0; // index of the vertex
 
 public:
-    // constructors
-
-    // default constructor
-    Vertex() : orig_edge_count(0), p_adj_list_head(nullptr) {}; 
-
     // methods
 
     // get methods
 
-    size_t get_orig_edge_count() const {return this->orig_edge_count;}
+    size_t get_orig_edge_count() const {return this->m_orig_edge_count;}
     
-    const E* get_adj_list_head() const {return this->p_adj_list_head;}
-    E* get_adj_list_head() {return this->p_adj_list_head;}
+    const E* get_adj_list_head() const {return this->m_p_adj_list_head;}
+    E* get_adj_list_head() {return this->m_p_adj_list_head;}
 
     // set methods
 
-    void set_adj_list_head(const E* const e) {this->p_adj_list_head = e;}
+    void set_adj_list_head(const E* const e) {this->m_p_adj_list_head = e;}
 
     // other methods
 
     // Add edge e as an outgoing edge of the vertex.
-    void add_outgoing_edge(E* e);
+    void add_outgoing_edge(E* const e);
 
-    // destructor
-    ~Vertex();
+    virtual void setup();
 };
 // #include "Vertex.hxx"
