@@ -102,9 +102,10 @@ void test_Graph()
     std::cout << "Are MSP and MSP connected? " << delta.are_connected("MSP", "MSP") << endl;
     std::cout << "Are SJC and JFK connected? " << delta.are_connected("SJC", "JFK") << endl;
     std::cout << "Are DEN and ATL connected? " << delta.are_connected("DEN", "ATL") << endl;
-    std::cout << "Are LAX and SFO connected? " << delta.are_connected("LAX", "SFO")  << endl;
-    std::cout << "Are SFO and LAX connected? " << delta.are_connected("SFO", "LAX")  << endl;
-    std::cout << "Are ATL and SFO connected? " << delta.are_connected("ATL", "SFO")  << endl;
+    std::cout << "Are LAX and SFO connected? " << delta.are_connected("LAX", "SFO") << endl;
+    std::cout << "Are SFO and LAX connected? " << delta.are_connected("SFO", "LAX") << endl;
+    std::cout << "Are ATL and SFO connected? " << delta.are_connected("ATL", "SFO") << endl;
+    std::cout << "Are SFO and ATL connected? " << delta.are_connected("SFO", "ATL") << endl;
 
     std::cout << endl << "finished testing graph connectivity" << endl;
 

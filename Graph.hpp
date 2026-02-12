@@ -11,6 +11,7 @@ private:
     const size_t m_num_edges;
     V* const m_arr_vertices;
     E* const m_arr_edges;
+    bool* const m_arr_visited; // visited[i] = if the vertex with index i has been visited
 
 public:
     // constructor
@@ -30,6 +31,9 @@ public:
     E* get_edge(const size_t idx) {return &this->m_arr_edges[idx];}
     const E* get_edge(const size_t idx) const {return &this->m_arr_edges[idx];}
 
+    bool* get_visited_arr() {return this->m_arr_visited;}
+    const bool* get_visited_arr() const {return this->m_arr_visited;}
+
     // set methods
 
     // void setup_V(V* const v) {}
@@ -38,7 +42,7 @@ public:
     // other methods
 
     // Check if there exists a path from vertex a to vertex b.
-    bool connected(const V* const a, const V* const b) const;
+    bool connected(V* a, V* b);
 
     // destructor
     ~Graph();

@@ -46,7 +46,7 @@ public:
         flight->set_cost(cost);
     }
 
-    bool are_connected(const std::string& a_code, const std::string& b_code) const {return this->connected(this->get_airport_from_code(a_code), this->get_airport_from_code(b_code));}
+    bool are_connected(const std::string& a_code, const std::string& b_code) {return this->connected(this->get_airport_from_code(a_code), this->get_airport_from_code(b_code));}
 
     // inherited virtual method from Graph
     virtual void display() const

@@ -14,6 +14,9 @@ private:
     size_t m_orig_edge_count = 0; // number of outgoing edges from the vertex
     E* m_p_adj_list_head = nullptr; // head of the vertex's outgoing adjacency list
     size_t m_idx = 0; // index of the vertex
+    // These 2 variables help us manage our own linked list (e.g. queue for BFS).
+    Vertex<E>* m_p_prev_in_list = nullptr;
+    Vertex<E>* m_p_next_in_list = nullptr;
 
 public:
     // methods
@@ -27,11 +30,21 @@ public:
 
     size_t get_idx() const {return this->m_idx;}
 
+    const Vertex<E>* get_prev_in_list() const {return this->m_p_prev_in_list;}
+    Vertex<E>* get_prev_in_list() {return this->m_p_prev_in_list;}
+
+    const Vertex<E>* get_next_in_list() const {return this->m_p_next_in_list;}
+    Vertex<E>* get_next_in_list() {return this->m_p_next_in_list;}
+
     // set methods
 
     void set_adj_list_head(E* const e) {this->m_p_adj_list_head = e;}
 
     void set_idx(const size_t idx) {this->m_idx = idx;}
+
+    void set_prev_in_list(Vertex<E>* const prev_vtx) {this->m_p_prev_in_list = prev_vtx;}
+
+    void set_next_in_list(Vertex<E>* const next_vtx) {this->m_p_next_in_list = next_vtx;}
 
     // other methods
 
