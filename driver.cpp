@@ -62,29 +62,51 @@ void test_Graph()
 {
     std::cout << "starting graph tests" << endl;
 
-    Airline delta(4, 6, "Delta");
-    Airport* pATL = delta.get_vertex(0);
-    delta.set_airport(pATL, "ATL");
-    Airport* pSFO = delta.get_vertex(1);
-    delta.set_airport(pSFO, "SFO");
-    Airport* pSJC = delta.get_vertex(2);
-    delta.set_airport(pSJC, "SJC");
-    Airport* pJFK = delta.get_vertex(3);
-    delta.set_airport(pJFK, "JFK");
+    // Test graph construction.
 
-    Flight* const p_atl2sfo = delta.get_edge(0);
-    delta.set_flight(p_atl2sfo, pATL, pSFO, 2500, 300);
-    Flight* const p_atl2sjc = delta.get_edge(1);
-    delta.set_flight(p_atl2sjc, pATL, pSJC, 2600, 350);
-    Flight* const p_atl2jfk = delta.get_edge(2);
-    delta.set_flight(p_atl2jfk, pATL, pJFK, 1800, 280);
-    Flight* const p_sjc2sfo = delta.get_edge(3);
-    delta.set_flight(p_sjc2sfo, pSJC, pSFO, 150, 190);
-    Flight* const p_sjc2jfk = delta.get_edge(4);
-    delta.set_flight(p_sjc2jfk, pSJC, pJFK, 3000, 470);
-    Flight* const p_sfo2jfk = delta.get_edge(5);
-    delta.set_flight(p_sfo2jfk, pSFO, pJFK, 2900, 550);
+    std::cout << endl << "constructing the graph" << endl;
+
+    size_t num_airports = 8;
+    size_t num_flights = 13;
+    Airline delta(num_airports, num_flights, "Delta");
+
+    // Set Delta's airports.
+    std::string airport_codes [] = {"ATL", "JFK", "MSP", "SEA", "DEN", "SFO", "SJC", "LAX"};
+    for (size_t i = 0; i < num_airports; i++)
+    {
+        Airport* const curr_airport = delta.get_vertex(i);
+        delta.set_airport(curr_airport, airport_codes[i]);
+    }
+
+    // Set Delta's flights.
+    std::pair<std::string, std::string> flight_cities [] = {{"ATL", "JFK"}, {"ATL", "MSP"}, {"ATL", "DEN"}, {"ATL", "SJC"}, {"SEA", "JFK"}, {"SEA", "MSP"}, {"SFO", "SEA"}, {"SEA", "DEN"}, {"SFO", "DEN"}, {"SFO", "LAX"}, {"LAX", "SFO"}, {"LAX", "SJC"}, {"SJC", "LAX"}};
+    std::pair<double, double> flight_data [] = {{1600, 345}, {1560, 305}, {2000, 415}, {2500, 550}, {2800, 590}, {2060, 535}, {1590, 355}, {1200, 275}, {750, 220}, {265, 200}, {265, 200}, {245, 195}, {245, 195}};
+    for (size_t i = 0; i < num_flights; i++)
+    {
+        Flight* const curr_flight = delta.get_edge(i);
+        Airport* const orig = delta.get_airport_from_code(flight_cities[i].first);
+        Airport* const dest = delta.get_airport_from_code(flight_cities[i].second);
+
+        delta.set_flight(curr_flight, orig, dest, flight_data[i].first, flight_data[i].second);
+    }
     
+    delta.display();
+
+    std::cout << endl << "finished constructing the graph" << endl;
+
+    // Test graph connectivity.
+
+    std::cout << endl << "testing graph connectivity" << endl;
+
+    std::cout << "Are ATL and JFK connected? " << delta.are_connected("ATL", "JFK") << endl;
+    std::cout << "Are MSP and MSP connected? " << delta.are_connected("MSP", "MSP") << endl;
+    std::cout << "Are SJC and JFK connected? " << delta.are_connected("SJC", "JFK") << endl;
+    std::cout << "Are DEN and ATL connected? " << delta.are_connected("DEN", "ATL") << endl;
+    std::cout << "Are LAX and SFO connected? " << delta.are_connected("LAX", "SFO")  << endl;
+    std::cout << "Are SFO and LAX connected? " << delta.are_connected("SFO", "LAX")  << endl;
+    std::cout << "Are ATL and SFO connected? " << delta.are_connected("ATL", "SFO")  << endl;
+
+    std::cout << endl << "finished testing graph connectivity" << endl;
 
     std::cout << "finished graph tests" << endl;
 }

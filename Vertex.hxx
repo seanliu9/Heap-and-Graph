@@ -3,7 +3,6 @@
 // methods
 
 // Add edge e as an outgoing edge of the vertex.
-
 template<typename E>
 void Vertex<E>::add_outgoing_edge(E* const e)
 {

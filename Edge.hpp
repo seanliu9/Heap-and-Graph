@@ -14,7 +14,7 @@ private:
     V* m_p_orig_vtx = nullptr;
     V* m_p_dest_vtx = nullptr;
     Edge<V>* m_p_next_of_orig = nullptr;
-    const size_t m_idx = 0;
+    size_t m_idx = 0;
 
     // set methods
 
@@ -41,9 +41,17 @@ public:
     const Edge<V>* get_next_of_orig() const {return this->m_p_next_of_orig;}
     Edge<V>* get_next_of_orig() {return this->m_p_next_of_orig;}
 
+    size_t get_idx() const {return this->m_idx;}
+
     // set methods
+    
     void set_orig(V* const v) {this->m_p_orig_vtx = v;}
+
     void set_dest(V* const v) {this->m_p_dest_vtx = v;}
 
-    virtual double get_distance() const = 0; // must be implemented by derived classes- used for algorithms like shortest path, etc.
+    void set_idx(const size_t idx) {this->m_idx = idx;}
+
+    // virtual methods
+
+    virtual double get_weight() const = 0; // must be implemented by derived classes- used for algorithms like shortest path, etc.
 };

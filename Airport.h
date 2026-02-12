@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include "Graph.hpp"
 
 class Flight;
@@ -22,4 +23,7 @@ public:
     // set methods
 
     void set_code(const std::string code) {this->m_code = code;}
+
+    // inherited virtual method from Vertex
+    virtual void display() const {std::cout << "Airport " << this->get_code() << " at index " << this->get_idx() << " with " << this->get_orig_edge_count() << " outgoing flights" << std::endl;}
 };

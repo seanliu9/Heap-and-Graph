@@ -13,8 +13,8 @@ private:
     E* const m_arr_edges;
 
 public:
-    // constructors
-    Graph(const size_t n, const size_t m) : m_num_vertices(n), m_num_edges(m), m_arr_vertices(new V[n]), m_arr_edges(new E[m]) {}
+    // constructor
+    Graph(const size_t n, const size_t m);
 
     // methods
 
@@ -26,6 +26,7 @@ public:
 
     V* get_vertex(const size_t idx) {return &this->m_arr_vertices[idx];}
     const V* get_vertex(const size_t idx) const {return &this->m_arr_vertices[idx];}
+
     E* get_edge(const size_t idx) {return &this->m_arr_edges[idx];}
     const E* get_edge(const size_t idx) const {return &this->m_arr_edges[idx];}
 
@@ -34,7 +35,15 @@ public:
     // void setup_V(V* const v) {}
     void setup_E(E* const e, V* const orig, V* const dest);
 
+    // other methods
+
+    // Check if there exists a path from vertex a to vertex b.
+    bool connected(const V* const a, const V* const b) const;
+
     // destructor
     ~Graph();
+
+    // virtual methods
+    virtual void display() const = 0;
 };
 #include "Graph.hxx"

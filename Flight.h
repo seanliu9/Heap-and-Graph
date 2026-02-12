@@ -16,12 +16,13 @@ public:
 
     // get methods
 
-    double get_distance() const {return this->m_distance;}
-
     double get_cost() const {return this->m_cost;}
 
     // set methods
 
     void set_distance(const double dist) {this->m_distance = dist;}
     void set_cost(const double cost) {this->m_cost = cost;}
+
+    // inherited virtual method from Edge
+    virtual double get_weight() const {return this->m_distance;}
 };
