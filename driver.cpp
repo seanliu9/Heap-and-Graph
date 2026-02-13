@@ -109,20 +109,53 @@ void test_Graph()
 
     std::cout << endl << "finished testing graph connectivity" << endl;
 
-    std::cout << "testing shortest path" << endl;
+    std::cout << endl << "testing shortest path" << endl;
 
     const Airport* pATL = delta.get_airport_from_code("ATL");
     double* a_dist = new double[delta.get_num_vertices()];
     const Edge<Airport>** a_pred = new const Edge<Airport>*[delta.get_num_vertices()];
-    delta.Dijkstra(pATL, a_dist, a_pred);
-    std::cout << "distance from ATL to LAX = " << a_dist[delta.get_airport_from_code("LAX")->get_idx()] << endl;
-    std::cout << "distance from ATL to SFO = " << a_dist[delta.get_airport_from_code("SFO")->get_idx()] << endl;
-    std::cout << "distance from ATL to ATL = " << a_dist[delta.get_airport_from_code("ATL")->get_idx()] << endl;
-    std::cout << "distance from ATL to MSP = " << a_dist[delta.get_airport_from_code("MSP")->get_idx()] << endl;
-    std::cout << "distance from ATL to JFK = " << a_dist[delta.get_airport_from_code("JFK")->get_idx()] << endl;
-    std::cout << "distance from ATL to LAS = " << a_dist[delta.get_airport_from_code("LAS")->get_idx()] << endl;
 
-    std::cout << "finished graph tests" << endl;
+    delta.Dijkstra(pATL, a_dist, a_pred);
+
+    const Airport* pLAX = delta.get_airport_from_code("LAX");
+    std::cout << endl << "distance from ATL to LAX = " << a_dist[pLAX->get_idx()] << endl;
+    std::vector<const Edge<Airport>*> sp_atl_2_lax;
+    delta.retrieve_shortest_path(pATL, pLAX, a_dist, a_pred, sp_atl_2_lax);
+    delta.display_shortest_path(sp_atl_2_lax);
+
+    const Airport* pSFO = delta.get_airport_from_code("SFO");
+    std::cout << endl << "distance from ATL to SFO = " << a_dist[pSFO->get_idx()] << endl;
+    std::vector<const Edge<Airport>*> sp_atl_2_sfo;
+    delta.retrieve_shortest_path(pATL, pSFO, a_dist, a_pred, sp_atl_2_sfo);
+    delta.display_shortest_path(sp_atl_2_sfo);
+
+    std::cout << endl << "distance from ATL to ATL = " << a_dist[delta.get_airport_from_code("ATL")->get_idx()] << endl;
+    std::vector<const Edge<Airport>*> sp_atl_2_atl;
+    delta.retrieve_shortest_path(pATL, pATL, a_dist, a_pred, sp_atl_2_atl);
+    delta.display_shortest_path(sp_atl_2_atl);
+
+    const Airport* pMSP = delta.get_airport_from_code("MSP");
+    std::cout << endl << "distance from ATL to MSP = " << a_dist[pMSP->get_idx()] << endl;
+    std::vector<const Edge<Airport>*> sp_atl_2_msp;
+    delta.retrieve_shortest_path(pATL, pMSP, a_dist, a_pred, sp_atl_2_msp);
+    delta.display_shortest_path(sp_atl_2_msp);
+
+    const Airport* pJFK = delta.get_airport_from_code("JFK");
+    std::cout << endl << "distance from ATL to JFK = " << a_dist[pJFK->get_idx()] << endl;
+    std::vector<const Edge<Airport>*> sp_atl_2_jfk;
+    delta.retrieve_shortest_path(pATL, pJFK, a_dist, a_pred, sp_atl_2_jfk);
+    delta.display_shortest_path(sp_atl_2_jfk);
+
+    const Airport* pLAS = delta.get_airport_from_code("LAS");
+    std::cout << endl << "distance from ATL to LAS = " << a_dist[pLAS->get_idx()] << endl;
+    std::vector<const Edge<Airport>*> sp_atl_2_las;
+    delta.retrieve_shortest_path(pATL, pLAS, a_dist, a_pred, sp_atl_2_las);
+    delta.display_shortest_path(sp_atl_2_las);
+
+    std::cout << "finished testing shortest path" << endl;
+
+
+    std::cout << endl << "finished graph tests" << endl;
 }
 
 int main()

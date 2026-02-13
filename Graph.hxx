@@ -1,7 +1,8 @@
 #include "Graph.hpp"
 #include "MinHeap.hpp"
-#include <unordered_map>
+// #include <unordered_map>
 #include <cstring>
+#include <algorithm>
 
 // constructor
 // Note that by default, a bool variable is false.
@@ -117,8 +118,8 @@ void Graph<V, E>::Dijkstra(const V* const p_src, double* a_dist, const Edge<V>**
     // Set everything in visited to false. The visited array will serve as the permanent array for Dijkstra's.
     std::memset(this->get_visited_arr(), false, n * sizeof(bool));
 
-    // Set the dist_label of every vertex to positive infinity.
-    std::fill(a_dist, a_dist + n, 1000000);
+    // Set the dist_label of every vertex to MAX_DISTANCE.
+    std::fill(a_dist, a_dist + n, MAX_DISTANCE);
 
     // Set the predecessor of every vertex to nullptr.
     std::fill(a_pred, a_pred + n, nullptr);
@@ -159,6 +160,25 @@ void Graph<V, E>::Dijkstra(const V* const p_src, double* a_dist, const Edge<V>**
             }
         }
     }
+}
+
+// Retrieve the shortest path from p_src to p_dest.
+template <typename V, typename E>
+void Graph<V, E>::retrieve_shortest_path(const V* const p_src, const V* const p_dest, double* a_dist, const Edge<V>** a_pred, std::vector<const Edge<V>*>& shortest_path)
+{
+    if (a_dist[p_dest->get_idx()] == MAX_DISTANCE) // if no path exists from p_src to p_dest
+    {
+        return;
+    }
+    const V* curr_vtx = p_dest;
+    size_t curr_vtx_idx;
+    while (curr_vtx != p_src)
+    {
+        curr_vtx_idx = curr_vtx->get_idx();
+        shortest_path.push_back(a_pred[curr_vtx_idx]);
+        curr_vtx = a_pred[curr_vtx_idx]->get_orig();
+    }
+    reverse(shortest_path.begin(), shortest_path.end());
 }
 
 // destructor

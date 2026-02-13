@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <vector>
 
+constexpr double MAX_DISTANCE = 1e9;
+
 template <typename V, typename E>
 class Graph
 {
@@ -49,6 +51,10 @@ public:
     // Compute the shortest path from vertex a to every vertex in the graph (or infinity if a vertex is not reachable from a).
     void Dijkstra(const V* const p_src, double* a_dist, const Edge<V>** a_pred);
     
+    void retrieve_shortest_path(const V* const p_src, const V* const p_dest, double* a_dist, const Edge<V>** a_pred, std::vector<const Edge<V>*>& shortest_path);
+
+    // virtual methods
+    virtual void display_shortest_path(std::vector<const Edge<V>*>& shortest_path) const = 0;
 
     // destructor
     ~Graph();
