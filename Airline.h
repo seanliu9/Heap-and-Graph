@@ -48,7 +48,7 @@ public:
 
     bool are_connected(const std::string& a_code, const std::string& b_code) {return this->connected(this->get_airport_from_code(a_code), this->get_airport_from_code(b_code));}
 
-    // inherited virtual method from Graph
+    // inherited virtual methods from Graph
     virtual void display() const
     {
         for (size_t i = 0; i < this->get_num_vertices(); i++)

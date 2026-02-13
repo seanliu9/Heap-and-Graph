@@ -1,5 +1,6 @@
 #include "Graph.hpp"
-#include <queue>
+#include "MinHeap.hpp"
+#include <unordered_map>
 #include <cstring>
 
 // constructor
@@ -103,6 +104,61 @@ bool Graph<V, E>::connected(V* a, V* b)
         }
     }
     return false;
+}
+
+// Compute the shortest path from vertex a to every vertex in the graph (or infinity if a vertex is not reachable from a).
+// a_dist and a_pred are passed in by the user. 
+// After calling the function, a_dist[i] = shortest distance from source to vertex with index i, and a_pred[i] = pointer to the predecessor edge of vertex i in the shortest path
+template<typename V, typename E>
+void Graph<V, E>::Dijkstra(const V* const p_src, double* a_dist, const Edge<V>** a_pred)
+{
+    size_t n = this->get_num_vertices();
+
+    // Set everything in visited to false. The visited array will serve as the permanent array for Dijkstra's.
+    std::memset(this->get_visited_arr(), false, n * sizeof(bool));
+
+    // Set the dist_label of every vertex to positive infinity.
+    std::fill(a_dist, a_dist + n, 1000000);
+
+    // Set the predecessor of every vertex to nullptr.
+    std::fill(a_pred, a_pred + n, nullptr);
+
+    MinHeap<const V*, double> pq;
+    const V* curr_vtx;
+    const Edge<V>* curr_outgoing_edge;
+    const V* neighbor_vtx;
+    double new_dist_label;
+    size_t neighbor_vtx_idx;
+
+    a_dist[p_src->get_idx()] = 0.0;
+    pq.add(std::make_pair(p_src, 0.0));
+    while (!pq.empty())
+    {
+        curr_vtx = pq.pop().first;
+        if (!this->get_visited_arr()[curr_vtx->get_idx()])
+        {
+            this->get_visited_arr()[curr_vtx->get_idx()] = true;
+            // Scan all the outgoing unvisited (non-permanent) vertices of curr_vtx.
+            curr_outgoing_edge = curr_vtx->get_adj_list_head();
+            while (curr_outgoing_edge != nullptr)
+            {
+                neighbor_vtx = curr_outgoing_edge->get_dest();
+                neighbor_vtx_idx = neighbor_vtx->get_idx();
+                if (!this->get_visited_arr()[neighbor_vtx->get_idx()])
+                {
+                    new_dist_label = a_dist[curr_vtx->get_idx()] + curr_outgoing_edge->get_weight();
+                    if (new_dist_label < a_dist[neighbor_vtx_idx])
+                    {
+                        a_dist[neighbor_vtx_idx] = new_dist_label;
+                        a_pred[neighbor_vtx_idx] = curr_outgoing_edge;
+                        pq.add(std::make_pair(neighbor_vtx, new_dist_label));
+                    }
+                }
+                // Examine the next edge in curr_vtx's adjacency list.
+                curr_outgoing_edge = curr_outgoing_edge->get_next_of_orig();
+            }
+        }
+    }
 }
 
 // destructor

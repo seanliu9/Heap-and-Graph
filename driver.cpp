@@ -42,7 +42,7 @@ void test_MinHeap()
 
     std::cout << endl << "Starting heap sort test: " << endl;
 
-    std::pair<char, int> arr1[] = {{'A', 53}, {'B', 40}, {'M', 38}, {'R', 62}, {'H', 48}, {'D', 63}, {'C', 60}, {'G', 122}, {'W', 3}, {'J', 25}, {'Q', 81}, {'Z', 37}, {'N', 118}};
+    std::pair<char, int> arr1[] = {{'A', 53}, {'B', 40}, {'M', 38}, {'X', 40}, {'R', 62}, {'H', 48}, {'D', 63}, {'C', 60}, {'G', 122}, {'S', 60}, {'W', 3}, {'J', 25}, {'Q', 81}, {'Z', 37}, {'N', 118}};
     MinHeap<char, int>* mh1 = new MinHeap<char, int>(arr1);
     std::vector<int> sorted;
     while (!mh1->empty())
@@ -66,12 +66,12 @@ void test_Graph()
 
     std::cout << endl << "constructing the graph" << endl;
 
-    size_t num_airports = 8;
-    size_t num_flights = 13;
+    size_t num_airports = 9;
+    size_t num_flights = 15;
     Airline delta(num_airports, num_flights, "Delta");
 
     // Set Delta's airports.
-    std::string airport_codes [] = {"ATL", "JFK", "MSP", "SEA", "DEN", "SFO", "SJC", "LAX"};
+    std::string airport_codes [] = {"ATL", "JFK", "MSP", "SEA", "DEN", "SFO", "SJC", "LAX", "LAS"};
     for (size_t i = 0; i < num_airports; i++)
     {
         Airport* const curr_airport = delta.get_vertex(i);
@@ -79,8 +79,8 @@ void test_Graph()
     }
 
     // Set Delta's flights.
-    std::pair<std::string, std::string> flight_cities [] = {{"ATL", "JFK"}, {"ATL", "MSP"}, {"ATL", "DEN"}, {"ATL", "SJC"}, {"SEA", "JFK"}, {"SEA", "MSP"}, {"SFO", "SEA"}, {"SEA", "DEN"}, {"SFO", "DEN"}, {"SFO", "LAX"}, {"LAX", "SFO"}, {"LAX", "SJC"}, {"SJC", "LAX"}};
-    std::pair<double, double> flight_data [] = {{1600, 345}, {1560, 305}, {2000, 415}, {2500, 550}, {2800, 590}, {2060, 535}, {1590, 355}, {1200, 275}, {750, 220}, {265, 200}, {265, 200}, {245, 195}, {245, 195}};
+    std::pair<std::string, std::string> flight_cities [] = {{"ATL", "JFK"}, {"ATL", "MSP"}, {"ATL", "DEN"}, {"ATL", "SJC"}, {"SEA", "JFK"}, {"SEA", "MSP"}, {"SFO", "SEA"}, {"SEA", "DEN"}, {"SFO", "DEN"}, {"SFO", "LAX"}, {"LAX", "SFO"}, {"LAX", "SJC"}, {"SJC", "LAX"}, {"LAS", "SEA"}, {"LAS", "DEN"}};
+    std::pair<double, double> flight_data [] = {{50, 345}, {35, 305}, {30, 415}, {35, 550}, {60, 590}, {40, 535}, {25, 355}, {20, 275}, {15, 220}, {10, 200}, {10, 200}, {15, 195}, {15, 195}, {15, 170}, {10, 160}};
     for (size_t i = 0; i < num_flights; i++)
     {
         Flight* const curr_flight = delta.get_edge(i);
@@ -109,10 +109,24 @@ void test_Graph()
 
     std::cout << endl << "finished testing graph connectivity" << endl;
 
+    std::cout << "testing shortest path" << endl;
+
+    const Airport* pATL = delta.get_airport_from_code("ATL");
+    double* a_dist = new double[delta.get_num_vertices()];
+    const Edge<Airport>** a_pred = new const Edge<Airport>*[delta.get_num_vertices()];
+    delta.Dijkstra(pATL, a_dist, a_pred);
+    std::cout << "distance from ATL to LAX = " << a_dist[delta.get_airport_from_code("LAX")->get_idx()] << endl;
+    std::cout << "distance from ATL to SFO = " << a_dist[delta.get_airport_from_code("SFO")->get_idx()] << endl;
+    std::cout << "distance from ATL to ATL = " << a_dist[delta.get_airport_from_code("ATL")->get_idx()] << endl;
+    std::cout << "distance from ATL to MSP = " << a_dist[delta.get_airport_from_code("MSP")->get_idx()] << endl;
+    std::cout << "distance from ATL to JFK = " << a_dist[delta.get_airport_from_code("JFK")->get_idx()] << endl;
+    std::cout << "distance from ATL to LAS = " << a_dist[delta.get_airport_from_code("LAS")->get_idx()] << endl;
+
     std::cout << "finished graph tests" << endl;
 }
 
 int main()
 {
+    // test_MinHeap();
     test_Graph();
 }

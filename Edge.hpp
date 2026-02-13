@@ -6,7 +6,7 @@ template<typename V, typename E> class Graph;
 template<typename V>
 class Edge
 {
-// friend class Graph<V, Edge<V>>; 
+friend class Graph<V, Edge<V>>; 
 template<typename E> friend class Vertex;
 friend class Vertex<Edge<V>>;
 
@@ -21,6 +21,7 @@ private:
     void set_next_of_orig(Edge<V>* const next_of_orig) {this->m_p_next_of_orig = next_of_orig;}
 
 public:
+
     // constructors
 
     // default constructor

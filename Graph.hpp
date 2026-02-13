@@ -2,6 +2,8 @@
 
 #include "Vertex.hpp"
 #include "Edge.hpp"
+#include <unordered_map>
+#include <vector>
 
 template <typename V, typename E>
 class Graph
@@ -44,10 +46,11 @@ public:
     // Check if there exists a path from vertex a to vertex b.
     bool connected(V* a, V* b);
 
+    // Compute the shortest path from vertex a to every vertex in the graph (or infinity if a vertex is not reachable from a).
+    void Dijkstra(const V* const p_src, double* a_dist, const Edge<V>** a_pred);
+    
+
     // destructor
     ~Graph();
-
-    // virtual methods
-    virtual void display() const = 0;
 };
 #include "Graph.hxx"
