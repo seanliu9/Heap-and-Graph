@@ -58,11 +58,10 @@ public:
         }
     }
 
-    void display_shortest_path(std::vector<const Edge<Airport>*>& shortest_path) const
+    void display_shortest_path(std::vector<const Flight*>& shortest_path) const
     {
-        for (const Edge<Airport>* edge : shortest_path)
+        for (const Edge<Airport>* flight: shortest_path)
         {
-            const Flight* flight = static_cast<const Flight*>(edge);
             std::cout << flight->get_orig()->get_code() << "->" << flight->get_dest()->get_code() << ", ";
         }
         std::cout << std::endl;

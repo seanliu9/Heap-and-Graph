@@ -111,9 +111,9 @@ bool Graph<V, E>::connected(V* a, V* b)
 // a_dist and a_pred are passed in by the user. 
 // After calling the function, a_dist[i] = shortest distance from source to vertex with index i, and a_pred[i] = pointer to the predecessor edge of vertex i in the shortest path
 template<typename V, typename E>
-void Graph<V, E>::Dijkstra(const V* const p_src, double* a_dist, const Edge<V>** a_pred)
+void Graph<V, E>::Dijkstra(const V* const p_src, double a_dist[], const E* a_pred[])
 {
-    size_t n = this->get_num_vertices();
+    const size_t n = this->get_num_vertices();
 
     // Set everything in visited to false. The visited array will serve as the permanent array for Dijkstra's.
     std::memset(this->get_visited_arr(), false, n * sizeof(bool));
@@ -151,7 +151,8 @@ void Graph<V, E>::Dijkstra(const V* const p_src, double* a_dist, const Edge<V>**
                     if (new_dist_label < a_dist[neighbor_vtx_idx])
                     {
                         a_dist[neighbor_vtx_idx] = new_dist_label;
-                        a_pred[neighbor_vtx_idx] = curr_outgoing_edge;
+                        //a_pred[neighbor_vtx_idx] = dynamic_cast<const E*>(curr_outgoing_edge);
+                        a_pred[neighbor_vtx_idx] = this->get_edge(curr_outgoing_edge->get_idx());
                         pq.add(std::make_pair(neighbor_vtx, new_dist_label));
                     }
                 }
@@ -164,7 +165,7 @@ void Graph<V, E>::Dijkstra(const V* const p_src, double* a_dist, const Edge<V>**
 
 // Retrieve the shortest path from p_src to p_dest.
 template <typename V, typename E>
-void Graph<V, E>::retrieve_shortest_path(const V* const p_src, const V* const p_dest, double* a_dist, const Edge<V>** a_pred, std::vector<const Edge<V>*>& shortest_path)
+void Graph<V, E>::retrieve_shortest_path(const V* const p_src, const V* const p_dest, double a_dist[], const E* a_pred[], std::vector<const E*>& shortest_path)
 {
     if (a_dist[p_dest->get_idx()] == MAX_DISTANCE) // if no path exists from p_src to p_dest
     {

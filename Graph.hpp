@@ -49,12 +49,12 @@ public:
     bool connected(V* a, V* b);
 
     // Compute the shortest path from vertex a to every vertex in the graph (or infinity if a vertex is not reachable from a).
-    void Dijkstra(const V* const p_src, double* a_dist, const Edge<V>** a_pred);
+    void Dijkstra(const V* const p_src, double a_dist[], const E* a_pred[]);
     
-    void retrieve_shortest_path(const V* const p_src, const V* const p_dest, double* a_dist, const Edge<V>** a_pred, std::vector<const Edge<V>*>& shortest_path);
+    void retrieve_shortest_path(const V* const p_src, const V* const p_dest, double a_dist[], const E* a_pred[], std::vector<const E*>& shortest_path);
 
     // virtual methods
-    virtual void display_shortest_path(std::vector<const Edge<V>*>& shortest_path) const = 0;
+    virtual void display_shortest_path(std::vector<const E*>& shortest_path) const = 0;
 
     // destructor
     ~Graph();
